@@ -1,16 +1,5 @@
 # rick_morty_api_v2
 
-A new Flutter project.
-
-## Getting Started
-
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![RickAndMortyApp](https://github.com/ejbussarello/rick_morty_api_v2/assets/7197583/c5e27b9d-4e0e-4509-beda-d2ff0a060f27)
