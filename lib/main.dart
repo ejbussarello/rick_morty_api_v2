@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_morty_api_v2/views/home_screen.dart';
+import 'package:rick_morty_api_v2/views/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      routes: {
+        '/splash': (context) => const SplashScreen(),
+        '/homepage': (context) => const HomeScreen(),
+      },
+      home: const SplashScreen(),
     );
   }
 }
