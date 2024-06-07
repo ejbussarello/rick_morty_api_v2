@@ -23,6 +23,56 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          elevation: 5,
+          leading: IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.arrow_left,
+              size: 40,
+            ),
+            tooltip: "Página anterior",
+            color: Colors.lightBlue,
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.arrow_right,
+                size: 40,
+              ),
+              tooltip: "Próxima Página",
+              color: Colors.lightBlue,
+            )
+          ],
+          title: const TextField(
+            decoration: InputDecoration(
+              hintText: 'Pesquise algum personagem...',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30.0),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30.0),
+                ),
+                borderSide: BorderSide(
+                  color: Colors.green,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30.0),
+                ),
+                borderSide: BorderSide(
+                  color: Colors.lightBlue,
+                ),
+              ),
+            ),
+          ),
+          centerTitle: true,
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: FutureBuilder<Character>(
