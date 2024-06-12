@@ -12,67 +12,53 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   late Future<Character> futureCharacter;
+  int page = 1;
+
+  bool _isExpanded = false;
+  final TextEditingController _searchController = TextEditingController();
+
+  void _Pesquisar() {
+    setState(() {
+      _isExpanded = !_isExpanded;
+      futureCharacter = fetchCharacter(page);
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    futureCharacter = fetchCharacter();
+    futureCharacter = fetchCharacter(page);
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 5,
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_left,
-              size: 40,
+        bottomNavigationBar: BottomNavigationBar(items: [
+          BottomNavigationBarItem(
+            icon: GestureDetector(
+              child: const Icon(Icons.arrow_back),
+              onTap: () {
+                if (page >= 2) {
+                  page--;
+                  fetchCharacter(page);
+                  _Pesquisar();
+                }
+              },
             ),
-            tooltip: "Página anterior",
-            color: Colors.lightBlue,
+            label: "Ant.",
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.arrow_right,
-                size: 40,
+          BottomNavigationBarItem(
+              icon: GestureDetector(
+                child: const Icon(Icons.arrow_forward),
+                onTap: () {
+                  page++;
+                  fetchCharacter(page);
+                  _Pesquisar();
+                },
               ),
-              tooltip: "Próxima Página",
-              color: Colors.lightBlue,
-            )
-          ],
-          title: const TextField(
-            decoration: InputDecoration(
-              hintText: 'Pesquise algum personagem...',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30.0),
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30.0),
-                ),
-                borderSide: BorderSide(
-                  color: Colors.green,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30.0),
-                ),
-                borderSide: BorderSide(
-                  color: Colors.lightBlue,
-                ),
-              ),
-            ),
-          ),
-          centerTitle: true,
-        ),
+              label: "Próx."),
+        ]),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: FutureBuilder<Character>(
@@ -102,6 +88,44 @@ class HomeScreenState extends State<HomeScreen> {
                 return const Center(child: Text('No data available'));
               }
             },
+          ),
+        ),
+        floatingActionButton: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          width: _isExpanded ? 300.0 : 56.0,
+          height: 56.0,
+          decoration: BoxDecoration(
+            color: Colors.blue[200],
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          child: Row(
+            children: [
+              if (_isExpanded)
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: TextField(
+                      style: const TextStyle(color: Colors.white),
+                      controller: _searchController,
+                      decoration: const InputDecoration(
+                        hintStyle: TextStyle(color: Colors.white),
+                        hintText: 'Search...',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+              IconButton(
+                icon: Icon(_isExpanded ? Icons.search : Icons.search),
+                color: Colors.white,
+                onPressed: () {
+                  if (_isExpanded) {
+                    // Recarregar a página com o filtro aplicado
+                    //${_searchController.text}
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
